@@ -1,6 +1,6 @@
 import lwforecast as lwf
+import lwforecast as lwf
 
-data = lwf.parse_csv("training.csv", 1)
+data = lwf.parse_csv("training.csv", 0)
 model = lwf.train(data)
-
-print(lwf.predict([69, 150], model))
+print(lwf.calc_acc(data, model))

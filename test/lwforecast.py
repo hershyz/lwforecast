@@ -77,3 +77,28 @@ def predict(point, model):
     
     prediction /= len(point)
     return prediction
+
+
+def calc_error(data, model):
+    
+    error = 0
+
+    for point in data:
+        
+        inputs = []
+        for i in range(0, len(point) - 1):
+            inputs.append(point[i])
+        real = point[len(point) - 1]
+        experimental = predict(inputs, model)
+
+        curr_error = abs(real - experimental)
+        curr_error /= experimental
+        curr_error *= 100
+        error += curr_error
+    
+    error /= len(data)
+    return error
+
+
+def calc_acc(data, model):
+    return 100 - calc_error(data, model)
