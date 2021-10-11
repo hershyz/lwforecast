@@ -4,13 +4,11 @@ def xy_regression(points):
     y = []
     xy = []
     x2 = []
-    y2 = []
 
     x_sum = 0
     y_sum = 0
     xy_sum = 0
     x2_sum = 0
-    y2_sum = 0
 
     for point in points:
         xy_data.append(point)
@@ -18,7 +16,6 @@ def xy_regression(points):
     for point in xy_data:
         xy.append(point[0] * point[1])
         x2.append(point[0] * point[0])
-        y2.append(point[1] * point[1])
         x.append(point[0])
         y.append(point[1])
 
@@ -26,14 +23,13 @@ def xy_regression(points):
     y_sum = sum(y)
     xy_sum = sum(xy)
     x2_sum = sum(x2)
-    y2_sum = sum(y2)
 
     a = (y_sum * x2_sum) - (x_sum * xy_sum)
     a /= (len(xy_data) * x2_sum) - (x_sum * x_sum)
 
     b = (len(xy_data) * xy_sum) - (x_sum * y_sum)
     b /= (len(xy_data) * x2_sum) - (x_sum * x_sum)
-    
+
     return [a, b]
 
 
