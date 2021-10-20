@@ -32,10 +32,30 @@ def xy_regression(points):
 
     return [a, b]
 
+def find_null(csv, start_index):
+
+    null_vals = []
+
+    with open(csv) as f:
+        lines = f.readlines()
+        for i in range(0, len(lines)):
+            lines[i] = str.replace(lines[i], "\n", "")
+        for i in range(0, len(lines)):
+            element = lines[i]
+            arr = element.split(",")
+            for index in arr:
+                try:
+                    test = float(index)
+                except:
+                    null_vals.append(i)
+
+    return null_vals
+
 
 def parse_csv(csv, start_index):
 
     data = []
+    null_vals = find_null(csv, start_index)
 
     with open(csv) as f:
 
@@ -44,11 +64,12 @@ def parse_csv(csv, start_index):
             lines[i] = str.replace(lines[i], "\n", "")
         
         for i in range(start_index, len(lines)):
-            raw = lines[i].split(",")
-            data_row = []
-            for element in raw:
-                data_row.append(float(element))
-            data.append(data_row)
+            if i not in null_vals:
+                raw = lines[i].split(",")
+                data_row = []
+                for element in raw:
+                    data_row.append(float(element))
+                data.append(data_row)
         
     return data
 
@@ -77,7 +98,6 @@ def predict(point, model):
     
     prediction /= len(point)
     return prediction
-
 
 def calc_error(data, model):
     
